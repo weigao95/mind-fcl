@@ -1,0 +1,282 @@
+//
+// Created by mech-mind_gw on 4/23/2023.
+//
+
+#pragma once
+
+namespace fcl {
+
+// broadphase/*.cpp:
+//==============================================================================
+namespace detail {
+extern template class BinaryAABB_Tree<float, SimpleVectorObjectAllocator>;
+extern template class BinaryAABB_Tree<double, SimpleVectorObjectAllocator>;
+}
+
+// cvx_coollide/*.cpp
+//==============================================================================
+namespace cvx_collide {
+
+extern template struct GJKGeometryData<float>;
+extern template struct GJKGeometryData<double>;
+
+extern template Vector3<float> basicGeometrySupport(
+    const GJKGeometryData<float>& gjk_geometry,
+    const Vector3<float>& direction);
+extern template Vector3<double> basicGeometrySupport(
+    const GJKGeometryData<double>& gjk_geometry,
+    const Vector3<double>& direction);
+
+extern template Vector3<float> basicGeometryInterior(
+    const GJKGeometryData<float>& gjk_geometry);
+extern template Vector3<double> basicGeometryInterior(
+    const GJKGeometryData<double>& gjk_geometry);
+
+extern template struct MinkowskiDiffVertex<float>;
+extern template struct MinkowskiDiffVertex<double>;
+
+extern template struct MinkowskiDiff<float>;
+extern template struct MinkowskiDiff<double>;
+
+extern template struct GJKSimplex<float>;
+extern template struct GJKSimplex<double>;
+
+extern template class GJK<float>;
+extern template class GJK<double>;
+
+extern template struct PolytopeVertex<float>;
+extern template struct PolytopeVertex<double>;
+
+extern template struct PolytopeEdge<float>;
+extern template struct PolytopeEdge<double>;
+
+extern template struct PolytopeFace<float>;
+extern template struct PolytopeFace<double>;
+
+extern template class Polytope<float>;
+extern template class Polytope<double>;
+
+extern template class EPA<float>;
+extern template class EPA<double>;
+
+extern template struct MPR<float>;
+extern template struct MPR<double>;
+
+}  // namespace cvx_collide
+
+// geometry/*.cpp
+//==============================================================================
+extern template class Box<float>;
+extern template class Box<double>;
+
+extern template class Capsule<float>;
+extern template class Capsule<double>;
+
+extern template class Cone<float>;
+extern template class Cone<double>;
+
+extern template class Convex<float>;
+extern template class Convex<double>;
+
+extern template class Cylinder<float>;
+extern template class Cylinder<double>;
+
+extern template class Ellipsoid<float>;
+extern template class Ellipsoid<double>;
+
+extern template class Halfspace<float>;
+extern template Halfspace<float> transform(const Halfspace<float>& a,
+                                           const Transform3<float>& tf);
+extern template class Halfspace<double>;
+extern template Halfspace<double> transform(const Halfspace<double>& a,
+                                            const Transform3<double>& tf);
+
+extern template class Plane<float>;
+extern template class Plane<double>;
+extern template Plane<float> transform(const Plane<float>& a,
+                                       const Transform3<float>& tf);
+extern template Plane<double> transform(const Plane<double>& a,
+                                        const Transform3<double>& tf);
+
+extern template class ShapeBase<float>;
+extern template class ShapeBase<double>;
+
+extern template class Sphere<float>;
+extern template class Sphere<double>;
+
+extern template class TriangleP<float>;
+extern template class TriangleP<double>;
+
+extern template class CollisionGeometry<float>;
+extern template class CollisionGeometry<double>;
+
+extern template class heightmap::FlatHeightMap<float>;
+extern template class heightmap::FlatHeightMap<double>;
+
+extern template class heightmap::LayeredHeightMap<float>;
+extern template class heightmap::LayeredHeightMap<double>;
+
+extern template class HeightMapCollisionGeometry<float>;
+extern template class HeightMapCollisionGeometry<double>;
+
+extern template class octree2::Octree<float>;
+extern template class octree2::Octree<double>;
+
+extern template class Octree2CollisionGeometry<float>;
+extern template class Octree2CollisionGeometry<double>;
+
+// narrowphase/*.cpp
+//==============================================================================
+namespace detail {
+extern template struct GJKSolver<float>;
+extern template struct GJKSolver<double>;
+}  // namespace detail
+
+extern template class CollisionObject<float>;
+extern template class CollisionObject<double>;
+
+extern template struct CollisionRequest<float>;
+extern template struct CollisionRequest<double>;
+
+extern template struct CollisionResult<float>;
+extern template struct CollisionResult<double>;
+
+extern template std::size_t collide(const CollisionObject<float>* o1,
+                                    const CollisionObject<float>* o2,
+                                    const CollisionRequest<float>& request,
+                                    CollisionResult<float>& result);
+extern template std::size_t collide(const CollisionObject<double>* o1,
+                                    const CollisionObject<double>* o2,
+                                    const CollisionRequest<double>& request,
+                                    CollisionResult<double>& result);
+
+extern template std::size_t collide(const CollisionGeometry<float>* o1,
+                                    const Transform3<float>& tf1,
+                                    const CollisionGeometry<float>* o2,
+                                    const Transform3<float>& tf2,
+                                    const CollisionRequest<float>& request,
+                                    CollisionResult<float>& result);
+extern template std::size_t collide(const CollisionGeometry<double>* o1,
+                                    const Transform3<double>& tf1,
+                                    const CollisionGeometry<double>* o2,
+                                    const Transform3<double>& tf2,
+                                    const CollisionRequest<double>& request,
+                                    CollisionResult<double>& result);
+
+extern template struct ContactPoint<float>;
+extern template struct ContactPoint<double>;
+
+extern template class CollisionPenetrationContactData<float>;
+extern template class CollisionPenetrationContactData<double>;
+
+extern template struct Contact<float>;
+extern template struct Contact<double>;
+
+extern template struct ContinuousCollisionContact<float>;
+extern template struct ContinuousCollisionContact<double>;
+
+extern template struct ContinuousCollisionRequest<float>;
+extern template struct ContinuousCollisionRequest<double>;
+
+extern template struct ContinuousCollisionResult<float>;
+extern template struct ContinuousCollisionResult<double>;
+
+extern template void translational_ccd(
+    const CollisionGeometry<float>* o1, const Transform3<float>& tf1,
+    const TranslationalDisplacement<float>& o1_displacement,
+    const CollisionGeometry<float>* o2, const Transform3<float>& tf2,
+    const ContinuousCollisionRequest<float>& request,
+    ContinuousCollisionResult<float>& result);
+extern template void translational_ccd(
+    const CollisionGeometry<double>* o1, const Transform3<double>& tf1,
+    const TranslationalDisplacement<double>& o1_displacement,
+    const CollisionGeometry<double>* o2, const Transform3<double>& tf2,
+    const ContinuousCollisionRequest<double>& request,
+    ContinuousCollisionResult<double>& result);
+
+// math/bv/*.cpp
+//==============================================================================
+extern template class AABB<float>;
+
+extern template class OBB<float>;
+
+extern template void computeVertices(const OBB<float>& b,
+                                     Vector3<float> vertices[8]);
+
+extern template OBB<float> merge_largedist(const OBB<float>& b1,
+                                           const OBB<float>& b2);
+
+extern template OBB<float> merge_smalldist(const OBB<float>& b1,
+                                           const OBB<float>& b2);
+
+extern template class OBBRSS<float>;
+
+extern template OBBRSS<float> translate(const OBBRSS<float>& bv,
+                                        const Vector3<float>& t);
+
+extern template class RSS<float>;
+
+extern template void clipToRange(float& val, float a, float b);
+
+extern template void segCoords(float& t, float& u, float a, float b,
+                               float A_dot_B, float A_dot_T, float B_dot_T);
+
+extern template bool inVoronoi(float a, float b, float Anorm_dot_B,
+                               float Anorm_dot_T, float A_dot_B, float A_dot_T,
+                               float B_dot_T);
+
+extern template float rectDistance(const Matrix3<float>& Rab,
+                                   const Vector3<float>& Tab, const float a[2],
+                                   const float b[2], Vector3<float>* P,
+                                   Vector3<float>* Q);
+
+extern template float rectDistance(const Transform3<float>& tfab,
+                                   const float a[2], const float b[2],
+                                   Vector3<float>* P, Vector3<float>* Q);
+
+extern template RSS<float> translate(const RSS<float>& bv,
+                                     const Vector3<float>& t);
+
+// math/bv/*.cpp
+//==============================================================================
+extern template class AABB<double>;
+
+extern template class OBB<double>;
+
+extern template void computeVertices(const OBB<double>& b,
+                                     Vector3<double> vertices[8]);
+
+extern template OBB<double> merge_largedist(const OBB<double>& b1,
+                                            const OBB<double>& b2);
+
+extern template OBB<double> merge_smalldist(const OBB<double>& b1,
+                                            const OBB<double>& b2);
+
+extern template class OBBRSS<double>;
+
+extern template OBBRSS<double> translate(const OBBRSS<double>& bv,
+                                         const Vector3<double>& t);
+
+extern template class RSS<double>;
+
+extern template void clipToRange(double& val, double a, double b);
+
+extern template void segCoords(double& t, double& u, double a, double b,
+                               double A_dot_B, double A_dot_T, double B_dot_T);
+
+extern template bool inVoronoi(double a, double b, double Anorm_dot_B,
+                               double Anorm_dot_T, double A_dot_B,
+                               double A_dot_T, double B_dot_T);
+
+extern template double rectDistance(const Matrix3<double>& Rab,
+                                    const Vector3<double>& Tab,
+                                    const double a[2], const double b[2],
+                                    Vector3<double>* P, Vector3<double>* Q);
+
+extern template double rectDistance(const Transform3<double>& tfab,
+                                    const double a[2], const double b[2],
+                                    Vector3<double>* P, Vector3<double>* Q);
+
+extern template RSS<double> translate(const RSS<double>& bv,
+                                      const Vector3<double>& t);
+};  // namespace fcl
