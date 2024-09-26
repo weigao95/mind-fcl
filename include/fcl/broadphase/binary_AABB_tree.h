@@ -5,6 +5,7 @@
 #pragma once
 
 #include <stack>
+#include <unordered_map>
 
 #include "fcl/broadphase/broadphase_common.h"
 #include "fcl/broadphase/binary_AABB_tree_allocator.h"
