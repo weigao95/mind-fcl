@@ -263,7 +263,7 @@ void ShapePairIntersectSolver<S_>::SimplexIntersect(
 
   // Only triangle-triangle is primitive
   if (s1.is_triangle() && s2.is_triangle()) {
-    trianglePairIntersect(s1, tf2, s2, tf2, rotation_2to1, translation_2in1,
+    trianglePairIntersect(s1, tf1, s2, tf2, rotation_2to1, translation_2in1,
                           request, contact_meta, result);
   } else if (s1.is_triangle() && s2.is_tetrahedron()) {
     const TriangleP<S> tri(s1[0], s1[1], s1[2]);
